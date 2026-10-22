@@ -1,6 +1,9 @@
+from contextlib import redirect_stdout
+from io import StringIO
 import unittest
+from unittest.mock import patch
 
-from grade_calculator import calculate_average, parse_grades
+from grade_calculator import calculate_average, main, parse_grades
 
 
 class ParseGradesTests(unittest.TestCase):
@@ -29,6 +32,19 @@ class CalculateAverageTests(unittest.TestCase):
     def test_rejects_empty_list(self):
         with self.assertRaises(ValueError):
             calculate_average([])
+
+
+class MainTests(unittest.TestCase):
+    def test_displays_grade_summary(self):
+        output = StringIO()
+        with patch("builtins.input", return_value="80, 90, 70"):
+            with redirect_stdout(output):
+                main()
+
+        self.assertIn("Grades entered: 3", output.getvalue())
+        self.assertIn("Lowest grade: 70.00", output.getvalue())
+        self.assertIn("Highest grade: 90.00", output.getvalue())
+        self.assertIn("Average grade: 80.00", output.getvalue())
 
     def test_rejects_missing_grade_between_commas(self):
         with self.assertRaises(ValueError):
