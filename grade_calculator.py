@@ -34,6 +34,9 @@ def main() -> None:
         return
 
     average = calculate_average(grades)
+    print(f"Grades entered: {len(grades)}")
+    print(f"Lowest grade: {min(grades):.2f}")
+    print(f"Highest grade: {max(grades):.2f}")
     print(f"Average grade: {average:.2f}")
 
 
