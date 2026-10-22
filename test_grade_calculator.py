@@ -1,6 +1,6 @@
 import unittest
 
-from grade_calculator import parse_grades
+from grade_calculator import calculate_average, parse_grades
 
 
 class ParseGradesTests(unittest.TestCase):
@@ -20,6 +20,15 @@ class ParseGradesTests(unittest.TestCase):
             with self.subTest(raw_grades=raw_grades):
                 with self.assertRaises(ValueError):
                     parse_grades(raw_grades)
+
+
+class CalculateAverageTests(unittest.TestCase):
+    def test_calculates_average(self):
+        self.assertEqual(calculate_average([80.0, 90.0, 70.0]), 80.0)
+
+    def test_rejects_empty_list(self):
+        with self.assertRaises(ValueError):
+            calculate_average([])
 
     def test_rejects_missing_grade_between_commas(self):
         with self.assertRaises(ValueError):

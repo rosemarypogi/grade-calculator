@@ -16,6 +16,14 @@ def parse_grades(raw_grades: str) -> list[float]:
     return grades
 
 
+def calculate_average(grades: list[float]) -> float:
+    """Return the arithmetic mean of a non-empty list of grades."""
+    if not grades:
+        raise ValueError("At least one grade is required.")
+
+    return sum(grades) / len(grades)
+
+
 def main() -> None:
     raw_grades = input("Enter grades from 0 to 100, separated by commas: ")
 
@@ -25,7 +33,7 @@ def main() -> None:
         print(f"Invalid input: {error}")
         return
 
-    average = sum(grades) / len(grades)
+    average = calculate_average(grades)
     print(f"Average grade: {average:.2f}")
 
 
